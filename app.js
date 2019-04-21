@@ -14,8 +14,11 @@ After that, it's the next player's turn
 let scores = [0, 0];
 let roundScore = 0;
 
-// The active player will be our player 1 and the player with a value of 1 will be our second player.
-let activePlayer = 1;
+// The active player will be our Player 1 and the player with a value of 1 will be our second player.
+let activePlayer = 0;
+
+// Add active indicator to the panel of the starting player
+document.querySelector(`.player-${activePlayer}-panel`).classList.add('active')
 
 let dice = Math.floor(Math.random() * 6) + 1;
 
