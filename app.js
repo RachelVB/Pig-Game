@@ -20,7 +20,7 @@ let activePlayer = 1;
 let dice = Math.floor(Math.random() * 6) + 1;
 
 //IMPORTANT: Written this way, it acts like a SETTER.
-document.querySelector('#current-' + activePlayer).textContent = dice;
+//document.querySelector('#current-' + activePlayer).textContent = dice;
 /* Text content can only set Plain text and not HTML.
 By using innerHTML, we can set HTML properties like '<em>' '</em>'. 
 Otherwise the result would show up with errors in plain text. 
