@@ -15,7 +15,7 @@ let scores = [0, 0];
 let roundScore = 0;
 
 // The active player will be our player 1 and the player with a value of 1 will be our second player.
-let activePlayer = 1;
+let activePlayer = 0;
 
 let dice = Math.floor(Math.random() * 6) + 1;
 
@@ -118,9 +118,23 @@ document.querySelector('.btn-hold').addEventListener('click', function () {
   /* This allows us to update the global score with the current active player */
 
   // Check if the player won the game
+  if (scores[activePlayer] >= 20) {
+    let winner = document.querySelector('#name-' + activePlayer).textContent;
+    /* By using the document.querySelector method, we can grab the appropriate
+    player name in our HTML */
+    document.querySelector('#name-' + activePlayer).textContent = 'Winner!'
 
-  // Next Player
-  nextPlayer();
+    document.querySelector('.dice').style.display = 'none';
+    document.querySelector('.player-' + activePlayer + '-panel').classList.add('winner');
+    document.querySelector('.player-' + activePlayer + '-panel').classList.remove('active');
+
+    alert(winner + ' has won the game!')
+  } else {
+    // Next Player
+    nextPlayer();
+
+  }
+
 
 });
 
