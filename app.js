@@ -113,6 +113,8 @@ document.querySelector('.btn-hold').addEventListener('click', function () {
   scores[activePlayer] = scores[activePlayer] + roundScore 
   */
 
+  //
+
   // Update the UI
   document.querySelector('#score-' + activePlayer).textContent = scores[activePlayer];
   /* This allows us to update the global score with the current active player */
