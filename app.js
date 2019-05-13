@@ -10,14 +10,11 @@ After that, it's the next player's turn
 - The first player to reach 100 points on GLOBAL score wins the game
 
 ***********************************************************************************************/
+let scores, roundScores, activePlayer;
 
-let scores = [0, 0];
-let roundScore = 0;
+init();
 
-// The active player will be our player 1 and the player with a value of 1 will be our second player.
-let activePlayer = 0;
-
-let dice = Math.floor(Math.random() * 6) + 1;
+// let dice = Math.floor(Math.random() * 6) + 1;
 
 //IMPORTANT: Written this way, it acts like a SETTER.
 //document.querySelector('#current-' + activePlayer).textContent = dice;
@@ -34,20 +31,9 @@ By storing it as a variable, we can reuse this selector over and over,
 without re-typing it out.
 */
 //IMPORTANT: Written this way, it acts like a GETTER.
-let x = document.querySelector('#score-0').textContent;
+// let x = document.querySelector('#score-0').textContent;
 //console.log(x);
 
-document.querySelector('.dice').style.display = 'none';
-
-document.getElementById('score-0').textContent = '0';
-document.getElementById('score-1').textContent = '0';
-document.getElementById('current-0').textContent = '0';
-document.getElementById('current-1').textContent = '0';
-
-
-function btn() {
-  //Do something here
-}
 /*
 By using a comma after the 'click' event, we are allowing only the event listener
 to call this function. Not when we save our code. 
@@ -151,5 +137,34 @@ function nextPlayer() {
   document.querySelector('.player-1-panel').classList.toggle('active');
 
   document.querySelector('.dice').style.display = 'none';
+}
+
+/*
+This is to reset our game back to 0. 
+However we want to keep in mind our DRY method.
+*/
+document.querySelector('.btn-new').addEventListener('click', init);
+/**
+ * ^^ By leaving out the () from our init function, it will be called in sequential order
+ * otherwise, if we add these brackets in, our funciton will be called immediatly
+ * and we don't want that. 
+ */
+
+function init() {
+  scores = [0, 0];
+  roundScore = 0;
+  // The active player will be our player 1 and the player with a value of 1 will be our second player.
+  activePlayer = 0;
+    
+  document.querySelector('.dice').style.display = 'none';
+
+  document.getElementById('score-0').textContent = '0';
+  document.getElementById('score-1').textContent = '0';
+  document.getElementById('current-0').textContent = '0';
+  document.getElementById('current-1').textContent = '0';
+
+  document.querySelector('name-0').textContent = 'Player 1';
+  document.querySelector('name-1').textContent = 'Player 2';
+
 
 }
