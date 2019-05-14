@@ -34,6 +34,16 @@ without re-typing it out.
 // let x = document.querySelector('#score-0').textContent;
 //console.log(x);
 
+function lastRoundScore() {
+  diceDOM.src = "dice-6.png";
+}
+
+function nextRoundScore() {
+  diceDOM.src = "dice-6.png";
+}
+
+lastDiceSix = false;
+
 /*
 By using a comma after the 'click' event, we are allowing only the event listener
 to call this function. Not when we save our code. 
@@ -54,14 +64,28 @@ document.querySelector('.btn-roll').addEventListener('click', function() {
   diceDOM.style.display = 'block';
   diceDOM.src = 'dice-' + dice + '.png';
 
-
   // Third: Update the round score only if the rolled number was not a 1.
-  if (dice !== 1) {
+  if (dice > 1 && dice != 6) {
     //Add Score
     roundScore += dice;
-    // This would be the other way of writing our 'RoundScore' -roundScore = roundScore + dice;-
+    // This would be the other way of writing our 'RoundScore' 'roundScore = roundScore + dice;'
     document.querySelector('#current-' + activePlayer).textContent = roundScore;
     //This code above allows us to add our score to our current total. 
+
+    lastDiceSix = false;
+  } else if (dice === 6) {
+
+    if (!lastDiceSix) {
+      lastDiceSix = true;
+      roundScore += dice;
+      document.querySelector('#current-' + activePlayer).textContent = roundScore;
+    } else {
+      document.querySelector('.dice').style.display = 'none';
+      scores[activePlayer] = 0;
+      lastDiceSix = false;
+      nextPlayer();
+    }
+    
   } else {
     //Next Player
     nextPlayer();
@@ -86,7 +110,7 @@ document.querySelector('.btn-roll').addEventListener('click', function() {
 
     document.querySelector('.dice').style.display = 'none';
     */
-    }
+    } 
     
   }
 
