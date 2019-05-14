@@ -10,7 +10,7 @@ After that, it's the next player's turn
 - The first player to reach 100 points on GLOBAL score wins the game
 
 ***********************************************************************************************/
-let scores, roundScores, activePlayer;
+let scores, roundScores, activePlayer, gamePlaying;
 
 init();
 
@@ -42,10 +42,11 @@ Alternativly, instead of having it call a function that we've already written,
 We can write our function within our event listener.
 This is called an anonymous function and it cannot be reused. 
 */
-document.querySelector('.btn-roll').addEventListener('click', btn);
+// document.querySelector('.btn-roll').addEventListener('click', btn);
 document.querySelector('.btn-roll').addEventListener('click', function() {
 
-  // First: We need a random Number.
+  if (gamePlaying) {
+      // First: We need a random Number.
   let dice = Math.floor(Math.random() * 6) + 1;
 
   // Second: Display the result.
@@ -85,6 +86,8 @@ document.querySelector('.btn-roll').addEventListener('click', function() {
 
     document.querySelector('.dice').style.display = 'none';
     */
+    }
+    
   }
 
 });
@@ -92,7 +95,9 @@ document.querySelector('.btn-roll').addEventListener('click', function() {
 
 /* This event listener will allow us to use the HOLD button */
 document.querySelector('.btn-hold').addEventListener('click', function () {
-  // Add current score to the players global score. 
+
+  if (gamePlaying) {
+      // Add current score to the players global score. 
   scores[activePlayer] += roundScore;
   /* ABOVE: We wante to update the scores array with what the active player has 
   in their current score. Another way of writing this code?
@@ -117,12 +122,14 @@ document.querySelector('.btn-hold').addEventListener('click', function () {
     document.querySelector('.player-' + activePlayer + '-panel').classList.remove('active');
 
     alert(winner + ' has won the game!')
+    gamePlaying = false;
   } else {
     // Next Player
     nextPlayer();
 
   }
-
+ 
+  }
 
 });
 
@@ -155,6 +162,8 @@ function init() {
   roundScore = 0;
   // The active player will be our player 1 and the player with a value of 1 will be our second player.
   activePlayer = 0;
+  gamePlaying = true;
+
     
   document.querySelector('.dice').style.display = 'none';
 
@@ -163,8 +172,44 @@ function init() {
   document.getElementById('current-0').textContent = '0';
   document.getElementById('current-1').textContent = '0';
 
-  document.querySelector('name-0').textContent = 'Player 1';
-  document.querySelector('name-1').textContent = 'Player 2';
+  document.getElementById('name-0').textContent = 'Player 1';
+  document.getElementById('name-1').textContent = 'Player 2';
 
+  document.querySelector('.player-0-panel').classList.remove('winner');
+  document.querySelector('.player-1-panel').classList.remove('winner');
+  /* ^^
+  This removes the winner class from both of our players when we select 'New Game'.
+  */
 
+  document.querySelector('.player-0-panel').classList.remove('active');
+  document.querySelector('.player-1-panel').classList.remove('active');
+    /* ^^
+  This removes the active class from both of our players when we select 'New Game'.
+  */
+
+  document.querySelector('.player-0-panel').classList.add('active');
+  /* ^^
+  This starts the new game with player 0.
+  */
 }
+
+
+
+
+/*
+YOUR 3 CHALLENGES
+Change the game to follow these rules:
+
+1. A player looses his ENTIRE score when he rolls two 6 in a row. 
+After that, it's the next player's turn. (Hint: Always save the previous dice roll 
+  in a separate variable)
+
+2. Add an input field to the HTML where players can set the winning score, 
+so that they can change the predefined score of 100. (Hint: you can read that 
+  value with the .value property in JavaScript. This is a good oportunity to 
+  use google to figure this out :)
+
+3. Add another dice to the game, so that there are two dices now. The player 
+looses his current score when one of them is a 1. (Hint: you will need CSS to 
+  position the second dice, so take a look at the CSS code for the first one.)
+*/
